@@ -1,4 +1,14 @@
 <html>
 <title> the project mmt </title>
 <head> this is the head </head>
+<body>
+	<div>
+	 {% for post in posts %}
+	 <div>
+	 	<p> published : {{post.publisted_date}}</p>
+	 	<h1> <a href="">{{ post.title }}</a> </h1>
+	 </div>
+	 {% endfor %}
+	</div> 
+	</body>
 </html>

@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+<html>
+<title> the project mmt </title>
+<head> The Proj.MMT </head>
+<body>
+	{% block content %}
+	 {% for movie in movies %}
+	 <div class="post">
+	 	<p> <hl> Movie Name : {{movie.movieTitle}} </hl> </p>
+	 	<h4> Director : {{movie.director}} <br> </h4>
+	 	<h4> {{movie.caption | linebreaksbr}} </h4>
+	 	<h5> {{photo_url}} </h5>
+	 	<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1544_RC05/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_TOPICS", {"comparisonItem":[{"keyword":"{{movie.movieTitle}}","geo":"KR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=KR&q=%EC%A4%91%EA%B2%BD%EC%82%BC%EB%A6%BC&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"});</script> 
+	 	<img src = "photo_url">
+	 </div>
+	 {% endfor %}
+	{% endblock %}
+	</div> 
+	</body>
+</html>

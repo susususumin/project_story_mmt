@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+<html>
+<title> the project mmt </title>
+<head> The Proj.MMT </head>
+<body>
+	{% block content %}
+	 {% for movie in movies %}
+	 <div class="post">
+	 	<p> <hl> <a href="{% url 'movie_detail' pk=movie.pk %}"> Movie Name : {{movie.movieTitle}} </a> </hl> </p>
+	 </div>
+	 {% endfor %}
+	{% endblock %}
+	</div> 
+	</body>
+</html>

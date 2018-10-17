@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+<html>
+<title> the project mmt </title>
+<head> The Proj.MMT 
+  <meta name="viewport" content="initial-scale=1.0">
+</head>
+<body>
+	{% block content %}
+	 <div class="post">
+	 	<p> <hl> Movie Name : {{movie.movieTitle}} </hl> </p>
+	 	<h4> Director : {{movie.director}} <br> </h4>
+	 	<h4> {{movie.caption | linebreaksbr}} </h4>
+	 	<h5> {{photo_url}} </h5>
+	 	<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1544_RC05/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_TOPICS", {"comparisonItem":[{"keyword":"{{movie.movieTitle}}","geo":"KR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=KR&q=%EC%A4%91%EA%B2%BD%EC%82%BC%EB%A6%BC&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"});</script>
+
+    <script type="text/javascript">
+    	var request = new XMLHttpRequest();
+
+			request.open('GET', 'https://maps.googleapis.com/maps/api/place/textsearch/json?query={{movie.place}}&key=AIzaSyC6SFUxL15xJfjnJSwXnOOZECisoo7PemI');
+			request.onload = function () {
+			  // Begin accessing JSON data here
+			  var data = JSON.parse(this.response);
+			 data.forEach(photos => refernece = photos.photo_reference)
+			 document.write(data);
+			}
+			request.send();
+	 	
+			photo_request.open('GET', 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+refernece+'?key=AIzaSyC6SFUxL15xJfjnJSwXnOOZECisoo7PemI', true);
+			photo_request.onload = function () {
+
+			  // Begin accessing JSON data here
+			  var data = JSON.parse(this.response);
+			}
+			request.send();
+	 	
+		</script> 
+	 	<img src = "{{photo_url}}" >
+
+	 </div>
+	{% endblock %}
+	</div> 
+	</body>
+</html>
