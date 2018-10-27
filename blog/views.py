@@ -1,13 +1,18 @@
+import json
+
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from .models import Post
+from django.views.generic import TemplateView
+from django.http import JsonResponse
+from django.test import Client
 from .models import Movie
-import requests
-import json
+from .models import Post
 
 
 
 # Create your views here.
+
 
 def getMovieList(request) : 
 	movies = Movie.objects.order_by('-movieTitle')
@@ -30,6 +35,34 @@ def search(request, content) :
 	context = {'movies' : movie}
 	return render(request, 'blog/mainPage.html',context)
 
-def movie_detail(request, pk) : 
-	movie = get_object_or_404(Movie, pk=pk)
-	return render(request, 'blog/movie_detail.html', {'movie' : movie})
+class AboutUs(TemplateView) :
+    template_name = 'blog/about.html'
+
+from .models import Movie
+
+class MovieDetail(TemplateView) :
+    template_name = 'blog/movie_detail.html'
+
+    def movie_detail(request, pk):
+        movie = get_object_or_404(Movie, pk=pk)
+        return render(request, 'blog/movie_detail.html', {'movie': movie}, {'url': MovieDetail.find_place(request, pk)})
+
+    def getJasonResponse(selfrequest):
+        return JsonResponse({'key': "value"})
+
+    def find_place(request, pk):
+        movie = get_object_or_404(Movie, pk=pk)
+        struct = {"refernece": "data"}
+        response = {}
+        c = Client()
+
+        response = request.GET.get('https://maps.googleapis.com/maps/api/place/textsearch/json?query=%s&key=AIzaSyC6SFUxL15xJfjnJSwXnOOZECisoo7PemI', movie.place)
+        struct = json.loads(response)
+        print(struct)
+        photo_url = ("//maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=%s?key=AIzaSyC6SFUxL15xJfjnJSwXnOOZECisoo7PemI",struct.photos.photo_reference)
+        return photo_url
+
+
+
+
+

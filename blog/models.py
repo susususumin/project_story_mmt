@@ -27,6 +27,9 @@ class Movie(models.Model):
 	country = models.CharField(max_length = 40)
 	place = models.CharField(max_length = 150)
 	caption = models.TextField()
+	genre = models.TextField(blank = True, null = True, default=" ")
+	realated = models.TextField(blank = True, null = True, default=" ")
+
 	Created_date = models.DateTimeField(
 		default=timezone.now)
 	published_date = models.DateTimeField(
